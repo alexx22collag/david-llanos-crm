@@ -1,0 +1,7 @@
+node_modules/
+.local/
+*.tar.gz
+.env
+.env.*
+!.env.example
+client_secret*.json

@@ -1,0 +1,12 @@
+{
+  "name": "david-llanos-coaching",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=24"},
+  "scripts": {
+    "dev": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "build": "node build.mjs",
+    "configure:google": "node configure-google.mjs"
+  }
+}
