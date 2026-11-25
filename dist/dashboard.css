@@ -348,8 +348,8 @@
 .activity-row > span:nth-child(2) { min-width: 0; overflow-wrap: anywhere; }
 .activity-row small { font-size: .8rem; color: #626c79; }
 .access-screen {
-  --access-photo: none;
-  --access-photo-position: center;
+  --access-photo: url('./login-bg.jpg');
+  --photo-ratio: .5713; /* ancho / alto de login-bg.jpg (1170 x 2048) */
   min-height: 100svh;
   padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
     max(14px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
@@ -357,10 +357,31 @@
   grid-template-rows: minmax(0, 1fr) auto;
   justify-items: center;
   background-color: #202731;
-  background-image: linear-gradient(180deg, #14181d12 10%, #181e26ad 65%, #171d25 100%),
+  background-image: linear-gradient(180deg, #14181d00 0%, #14181d00 32%, #181e26c4 60%, #171d25 100%),
     var(--access-photo), radial-gradient(ellipse at 74% 6%, #b69b684a, transparent 65%);
+  background-repeat: no-repeat;
+  /* Ventana casi cuadrada: la foto cubre todo y se centra en el sujeto. */
   background-size: cover;
-  background-position: center, var(--access-photo-position), center;
+  background-position: center, 50% 58%, center;
+}
+/* Móvil y tablet vertical: foto ampliada y anclada abajo para que el sujeto quede en la
+   mitad superior, con el formulario sobre la parte baja. */
+@media (max-aspect-ratio: 4/5) {
+  .access-screen {
+    background-size: cover, auto 150%, cover;
+    background-position: center, 50% 100%, center;
+  }
+}
+/* Ordenador: la foto es vertical, así que va como panel a la derecha a toda la altura (sin
+   ampliarla, para que no se vea borrosa), con el borde izquierdo fundido, y el formulario a la izquierda. */
+@media (min-width: 1000px) and (min-aspect-ratio: 5/4) {
+  .access-screen {
+    padding-right: max(20px, calc(100svh * var(--photo-ratio)));
+    background-image: linear-gradient(90deg, #202731 0%, #20273100 30%),
+      var(--access-photo), radial-gradient(ellipse at 22% 8%, #b69b6838, transparent 62%);
+    background-size: calc(100svh * var(--photo-ratio)) 100%, auto 100%, cover;
+    background-position: right center, right center, center;
+  }
 }
 .access-card {
   width: min(100%, 445px);
@@ -397,7 +418,7 @@
 .legal-document { max-width: 740px; margin-inline: auto; padding: clamp(20px, 5vw, 42px); }
 .legal-document .btn { margin-bottom: 23px; }
 .legal-document h2 { margin-top: 26px; }
-@media (max-width: 700px) {
+@media (max-width: 700px), (max-aspect-ratio: 4/5) {
   .access-card { align-self: end; margin-top: clamp(45px, 22svh, 185px); margin-bottom: 9px; border-radius: 22px; }
   .access-card .access-mark { width: 64px; height: 64px; margin-bottom: 16px; }
 }
