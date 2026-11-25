@@ -357,7 +357,7 @@
   grid-template-rows: minmax(0, 1fr) auto;
   justify-items: center;
   background-color: #202731;
-  background-image: linear-gradient(180deg, #14181d00 0%, #14181d00 32%, #181e26c4 60%, #171d25 100%),
+  background-image: linear-gradient(180deg, #14181d00 0%, #14181d00 42%, #14181d70 66%, #14181dab 86%, #171d25f2 100%),
     var(--access-photo), radial-gradient(ellipse at 74% 6%, #b69b684a, transparent 65%);
   background-repeat: no-repeat;
   /* Ventana casi cuadrada: la foto cubre todo y se centra en el sujeto. */
@@ -390,11 +390,19 @@
   padding: clamp(22px, 5vw, 37px);
   border: 1px solid #d1bc9055;
   border-radius: 24px;
-  background: #222931ea;
+  background: #222931ea; /* respaldo opaco si el navegador no soporta el desenfoque */
   color: #f8f2e6;
   box-shadow: 0 14px 60px #14192380;
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
+}
+/* Efecto cristal: translúcido y con desenfoque, para que la foto se vea a través del formulario. */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .access-card {
+    background: linear-gradient(155deg, #ffffff2e 0%, #ffffff12 38%, #1a20294d 100%);
+    border-color: #ffffff2e;
+    box-shadow: inset 0 1px 0 #ffffff40, inset 0 -1px 0 #ffffff10, 0 18px 50px #0000005c;
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+    backdrop-filter: blur(22px) saturate(150%);
+  }
 }
 .access-card h1 { font-size: clamp(1.7rem, 4vw, 2.25rem); }
 .access-description { color: #e0ddd7; margin-bottom: 21px; }
